@@ -66,19 +66,26 @@
                     <mainClass>com.example.bankapp.BankAppApplication</mainClass> <!-- Update this to your actual main class -->
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.8</version> <!-- Use the latest version -->
                 <executions>
+                    <!-- Prepare JaCoCo Agent before test phase -->
                     <execution>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <destFile>${project.build.directory}/jacoco.exec</destFile> <!-- Ensures execution data is stored here -->
+                        </configuration>
                     </execution>
+                    <!-- Generate Report after tests -->
                     <execution>
                         <id>report</id>
-                        <phase>prepare-package</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
